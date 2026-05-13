@@ -20,6 +20,12 @@ install.packages(c(
   "zip", "shinyWidgets"
 ))
 
+## Notes:
+
+To run the application locally, users need R and the required package dependencies installed. The application was developed and tested in R version 4.5.2.
+
+After installing the required packages, the user simply sets the working directory to the application folder and launches the Shiny app.
+
 ## How to Run Locally
 
 1. Open RStudio.
