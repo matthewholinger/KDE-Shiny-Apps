@@ -617,9 +617,13 @@ server <- function(input, output, session) {
   }
   run <- function(path, sheet, nameCol, xCol, yCol, zCol, dir, out_file, excluded, zIncr, habitatDepth, ifNoise, ifManateeJitter, ifSingle, ifDouble, if2D, percs, ms, ns, pilots, colorSingle, colorDouble1, colorDouble2, opacitySingle, opacityDouble1, opacityDouble2, display2D) { # Runs program
     raw <- read_excel(path, sheet=sheet)
-    names <- unique(raw[nameCol]) # Get unique names for iterating
-    colnames(excluded) <- nameCol # Rename columns for processing
-    names <- anti_join(names, excluded, by=nameCol) # Remove excluded from names
+    names <- unique(raw[nameCol])
+    colnames(excluded) <- nameCol
+    
+    names[[nameCol]] <- as.character(names[[nameCol]])
+    excluded[[nameCol]] <- as.character(excluded[[nameCol]])
+    
+    names <- anti_join(names, excluded, by=nameCol)
     
     totalRunsSingle <- nrow(names)
     totalRunsDouble <- choose(nrow(names), 2)
@@ -668,10 +672,10 @@ server <- function(input, output, session) {
       print(paste("total Runs", totalRuns, sep = ": "))
       for(i in 1:(nrow(names)-1)) {
         name1 <- as.character(names[i,])
-        data1 <- prepData(raw, name1, nameCol, xCol, yCol, zCol, zIncr, ifNoise, habitatDepth, if2D, ifManateeJitter)
+        data1 <- prepData(raw, name1, nameCol, xCol, yCol, zCol, zIncr, habitatDepth, ifNoise, if2D, ifManateeJitter)
         for(j in (i+1):nrow(names)) {
           name2 <- as.character(names[j,])
-          data2 <- prepData(raw, name2, nameCol, xCol, yCol, zCol, zIncr, ifNoise, if2D, ifManateeJitter)
+          data2 <- prepData(raw, name2, nameCol, xCol, yCol, zCol, zIncr, habitatDepth, ifNoise, if2D, ifManateeJitter)
           tag <- paste(name1,"&",name2)
           imgDir <- paste(dir,"/Double-Trial-Results/",tag,sep="")
           if(! dir.exists(imgDir)) { dir.create(imgDir) }

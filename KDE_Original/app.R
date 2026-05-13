@@ -638,10 +638,10 @@ server <- function(input, output, session) {
       print(paste("total Runs", totalRuns, sep = ": "))
       for(i in 1:(nrow(names)-1)) {
         name1 <- as.character(names[i,])
-        data1 <- prepData(raw, name1, nameCol, xCol, yCol, zCol, zIncr, ifNoise, habitatDepth, if2D, ifManateeJitter)
+        data1 <- prepData(raw, name1, nameCol, xCol, yCol, zCol, zIncr, habitatDepth, ifNoise, if2D, ifManateeJitter)
         for(j in (i+1):nrow(names)) {
           name2 <- as.character(names[j,])
-          data2 <- prepData(raw, name2, nameCol, xCol, yCol, zCol, zIncr, ifNoise, if2D, ifManateeJitter)
+          data2 <- prepData(raw, name2, nameCol, xCol, yCol, zCol, zIncr, habitatDepth, ifNoise, if2D, ifManateeJitter)
           tag <- paste(name1,"&",name2)
           imgDir <- paste(dir,"/Double-Trial-Results/",tag,sep="")
           if(! dir.exists(imgDir)) { dir.create(imgDir) }
@@ -907,6 +907,14 @@ server <- function(input, output, session) {
   #Button to Run KDE
   observeEvent(input$action1, {
     
+    if(is.numeric(raw[[nameCol]])) {
+      showNotification(
+        "Selected Name Column appears numeric. Please choose an animal name column.",
+        type = "error"
+      )
+      return()
+    }
+    
     #updateTextInput(session, "KDEtext", value = "KDE is Running")
     
     req(input$file)
@@ -1019,6 +1027,13 @@ server <- function(input, output, session) {
     percsString <- input$contours_input
     percsList <- as.list(strsplit(percsString, ",")[[1]])
     percs <- lapply(percsList, function(x) as.integer(x))
+    if(any(percs <= 0 | percs >= 100)) {
+      showNotification(
+        "Contour values must be between 0 and 100.",
+        type = "error"
+      )
+      return()
+    }
     print(percs)
     # Determining depth section height
     # Currently, heights are marked as the top of a section, so the range between the max and min
@@ -1045,6 +1060,13 @@ server <- function(input, output, session) {
       pilots <- c(pilots, "dunconstr")
     }
     
+    if(length(pilots) == 0) {
+      showNotification(
+        "Please select at least one bandwidth option.",
+        type = "error"
+      )
+      return()
+    }
     #dirInfo <- (paste(dir, "/output_total_double.csv", sep=""))
     #print(dirInfo)
     
