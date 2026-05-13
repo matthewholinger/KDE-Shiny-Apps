@@ -24,8 +24,14 @@ install.packages(c(
 
 1. Open RStudio.
 2. Open the desired app folder.
-3. Make sure `app.R` is inside the folder.
-4. Run:
+3. Set working directory.
+Example:
+        setwd("~/Desktop/KDE_GitHub_Deliverable/KDE_Manatee")
+5. Make sure `app.R` is inside the folder.
+6. Set source.
+   Example:
+            source("app.R")
+8. Run:
 
 ```r
 shiny::runApp()
