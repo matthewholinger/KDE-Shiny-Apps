@@ -423,16 +423,18 @@ server <- function(input, output, session) {
   
   genBounds <- function(data1, data2, if2D) { # Generate bounds for two volumes
     data <- rbind(data1, data2)
-    mins <- c()
-    maxs <- c()
+    
     if(if2D) {
       mins <- c(min(data$X), min(data$Y))
-      maxs <- c(max(data$X), max(data$Y)) }
-    else {
+      maxs <- c(max(data$X), max(data$Y))
+    } else {
       mins <- c(min(data$X), min(data$Y), min(data$Z))
-      maxs <- c(max(data$X), max(data$Y), max(data$Z)) }
+      maxs <- c(max(data$X), max(data$Y), max(data$Z))
+    }
+    
     bounds <- c(mins, maxs)
-    return(bounds) }
+    return(bounds)
+  }
   
   KDETrialSingle <- function(data, if2D, percs, m, n, pilot, imgDir, colorSingle, opacitySingle, display2D) { # Tries KDE with given settings for single volumes
     band <- Hpi(data, nstage=n, pilot=pilot)*m # Generate bandwidth matrix

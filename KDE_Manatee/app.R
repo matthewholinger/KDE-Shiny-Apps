@@ -419,14 +419,24 @@ server <- function(input, output, session) {
   genLabel <- function(m, n, pilot) { # Generate label for KDE settings
     return(paste("M",m,",N",n,",",pilot,sep="")) }
   
-  genBounds <- function(data1, data2, if2D) { # Generate bounds for two volumes
-    data <- rbind(data1, data2)
-    mins <- c()
-    maxs <- c()
-    data <- select(data, all_of(c(xCol, yCol, zCol)))
-    colnames(data) <- c("X", "Y", "Z")
+genBounds <- function(data1, data2, if2D) { # Generate bounds for two volumes
+  data <- rbind(data1, data2)
+  
+  if(if2D) {
+    mins <- c(min(data$X), min(data$Y))
+    maxs <- c(max(data$X), max(data$Y))
+  } else {
+    mins <- c(min(data$X), min(data$Y), min(data$Z))
+    maxs <- c(max(data$X), max(data$Y), max(data$Z))
+  }
+  
+  bounds <- c(mins, maxs)
+  return(bounds)
+}
+    
     bounds <- c(mins, maxs)
-    return(bounds) }
+    return(bounds)
+  }
   
   KDETrialSingle <- function(data, if2D, percs, m, n, pilot, imgDir, colorSingle, opacitySingle, display2D) { # Tries KDE with given settings for single volumes
     band <- Hpi(data, nstage=n, pilot=pilot)*m # Generate bandwidth matrix
@@ -472,7 +482,7 @@ server <- function(input, output, session) {
     bounds <- genBounds(data1, data2, if2D) # Generate outer bounds for KDE
     dims <- 3
     if(if2D) { dims <- 2 }
-    grids <- rep(15, dims)
+    grids <- rep(50, dims)
     
     fhat1 <- kde(
       data1,
