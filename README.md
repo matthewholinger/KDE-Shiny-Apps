@@ -33,12 +33,12 @@ Here is a YouTube Tutorial https://www.youtube.com/watch?v=e_gPvsluPT8
 1. Open RStudio.
 2. Open the desired app folder.
 3. Set working directory.
-Example:
-        setwd("~/Desktop/KDE_Manatee")
 5. Make sure `app.R` is inside the folder.
 6. Set source in console using code below. Once that is set, then run shiny:runApp()
-
+## Example:
 ```r
+setwd("~/Desktop/KDE_Manatee")
+
 source("app.R")
 
 shiny::runApp()
