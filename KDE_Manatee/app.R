@@ -429,11 +429,6 @@ genBounds <- function(data1, data2, if2D) { # Generate bounds for two volumes
     mins <- c(min(data$X), min(data$Y), min(data$Z))
     maxs <- c(max(data$X), max(data$Y), max(data$Z))
   }
-  
-  bounds <- c(mins, maxs)
-  return(bounds)
-}
-    
     bounds <- c(mins, maxs)
     return(bounds)
   }
