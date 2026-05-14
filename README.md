@@ -26,6 +26,8 @@ To run the application locally, users need R and the required package dependenci
 
 After installing the required packages, the user simply sets the working directory to the application folder and launches the Shiny app.
 
+Here is a YouTube Tutorial https://www.youtube.com/watch?v=e_gPvsluPT8 
+
 ## How to Run Locally
 
 1. Open RStudio.
@@ -34,10 +36,11 @@ After installing the required packages, the user simply sets the working directo
 Example:
         setwd("~/Desktop/KDE_Manatee")
 5. Make sure `app.R` is inside the folder.
-6. Set source.
-   Example:
-            source("app.R")
-8. Run:
+6. Set source in console.
+
+```r
+source("app.R")
+7. Run:
 
 ```r
 shiny::runApp()
