@@ -480,7 +480,7 @@ server <- function(input, output, session) {
     bounds <- genBounds(data1, data2, if2D) # Generate outer bounds for KDE
     dims <- 3
     if(if2D) { dims <- 2 }
-    grids <- rep(15, dims)
+    grids <- rep(50, dims)
     
     fhat1 <- kde(
       data1,
@@ -503,8 +503,8 @@ server <- function(input, output, session) {
     # handle 3D
     if(!if2D) {
       imgName <- paste(imgDir,"/",genLabel(m,n,pilot),".html",sep="")
-      plot(fhat1, display="rgl", cont=percs, asp=1, col=colorDouble1, alpha=opacityDouble1)
-      plot(fhat2, display="rgl", cont=percs, asp=1, add=TRUE, col=colorDouble2, alpha=opacityDouble2)
+      plot(fhat1, display="rgl", cont=percs, asp=1, col=colorDouble2, alpha=opacityDouble2)
+      plot(fhat2, display="rgl", cont=percs, asp=1, add=TRUE, col=colorDouble1, alpha=opacityDouble1)
       scene <- scene3d()
       saveWidget(rglwidget(scene), file=imgName)
       
@@ -516,8 +516,8 @@ server <- function(input, output, session) {
       colorIndexOffset <- 1
       imgName <- paste(imgDir, "/", genLabel(m,n,pilot), ".png", sep="")
       png(imgName)
-      plot(fhat1, display=display2D, cont=percs, asp=1, col=colorDouble1, alpha=0.5)
-      plot(fhat2, display=display2D, cont=percs, asp=1, add=TRUE, col=colorDouble2, alpha=0.5)
+      plot(fhat1, display=display2D, cont=percs, asp=1, col=colorDouble2, alpha=0.5)
+      plot(fhat2, display=display2D, cont=percs, asp=1, add=TRUE, col=colorDouble1, alpha=0.5)
       dev.off()
     }
     
@@ -526,8 +526,8 @@ server <- function(input, output, session) {
     key_entries = c()
     
     for(i in 1:length(percs)){
-      key_entries <- c(key_entries, paste(name1, " ", reversed_percs[i], " % Contour: ", colorDouble1[i + colorIndexOffset]))
-      key_entries <- c(key_entries, paste(name2, " ", reversed_percs[i], " % Contour: ", colorDouble2[i + colorIndexOffset]))
+      key_entries <- c(key_entries, paste(name1, " ", reversed_percs[i], " % Contour: ", colorDouble2[i + colorIndexOffset]))
+      key_entries <- c(key_entries, paste(name2, " ", reversed_percs[i], " % Contour: ", colorDouble1[i + colorIndexOffset]))
     }
     
     writeLines(key_entries, color_key_file)
@@ -909,13 +909,13 @@ server <- function(input, output, session) {
   #Button to Run KDE
   observeEvent(input$action1, {
     
-    if(is.numeric(raw[[nameCol]])) {
-      showNotification(
-        "Selected Name Column appears numeric. Please choose an animal name column.",
-        type = "error"
-      )
-      return()
-    }
+    #if(is.numeric(raw[[input$nameCol]])) {
+      #showNotification(
+        #"Selected Name Column appears numeric. Please choose an animal name column.",
+        #type = "error"
+      #)
+      #return()
+    #}
     
     #updateTextInput(session, "KDEtext", value = "KDE is Running")
     
