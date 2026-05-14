@@ -36,12 +36,10 @@ Here is a YouTube Tutorial https://www.youtube.com/watch?v=e_gPvsluPT8
 Example:
         setwd("~/Desktop/KDE_Manatee")
 5. Make sure `app.R` is inside the folder.
-6. Set source in console.
+6. Set source in console using code below. Once that is set, then run shiny:runApp()
 
 ```r
 source("app.R")
-7. Run:
 
-```r
 shiny::runApp()
 
