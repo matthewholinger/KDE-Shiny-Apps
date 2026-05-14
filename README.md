@@ -5,7 +5,7 @@ This repository contains two R Shiny applications for KDE-based spatial analysis
 ## Apps
 
 ### KDE_Original
-Original workflow for 2D/3D KDE analysis, including standard depth jitter for 3D data.
+Original workflow for 2D or 3D KDE analysis, including standard depth jitter for 3D data.
 
 ### KDE_Manatee
 Manatee-specific 3D workflow using habitat-depth-based jitter. Surface and floor points are not jittered. The water column is divided into:
