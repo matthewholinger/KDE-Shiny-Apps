@@ -28,6 +28,15 @@ After installing the required packages, the user simply sets the working directo
 
 Here is a YouTube Tutorial https://www.youtube.com/watch?v=e_gPvsluPT8 
 
+## Known Issues and Limitations
+
+- Some bandwidth optimization settings may behave inconsistently depending on the dataset, R version, and selected KDE parameters. The most stable setting during testing was `samse` with lower stage values.
+- Increasing the number of bandwidth optimization stages can increase runtime and may occasionally cause `Hpi()` errors for certain datasets.
+- The hosted Shiny version may struggle with large 3D KDE runs because of memory/runtime limits. Local execution is recommended for heavier analyses.
+- Very large datasets, many animal pairs, or selecting all bandwidth methods at once can significantly increase runtime.
+- Users should carefully select the correct name and coordinate columns. Incorrect column selections may lead to invalid outputs or runtime errors.
+
+
 ## How to Run Locally
 
 1. Open RStudio.
